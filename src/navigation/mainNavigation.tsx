@@ -2,7 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import HomeScreen from '../screens/Home';
-import RateUs from '../screens/RateUs';
+import RateUSControl from '../screens/RateUs/RateUsControl';
+import RateUSTest from '../screens/RateUs/RateUsTest';
 import { StackNavigationType } from './type';
 
 const Stack = createNativeStackNavigator<StackNavigationType>();
@@ -23,10 +24,11 @@ const Navigation = () => {
                         animation: 'fade',
                         headerShown: false,
                     }}>
-                    <Stack.Screen name="RateUs" component={RateUs} />
+                    <Stack.Screen name="RateUsTest" component={RateUSTest} />
+                    <Stack.Screen name="RateUsControl" component={RateUSControl} />
                 </Stack.Group>
             </Stack.Navigator>
         </NavigationContainer>
     )
 }
-export { Navigation }
+export { Navigation };
