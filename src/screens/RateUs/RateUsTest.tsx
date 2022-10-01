@@ -46,9 +46,18 @@ const RateUSTest = ({ navigation }: NavigationProps) => {
                         Rate Us
                     </Text>
                 </Pressable>
-                <Text style={styles.footerTxt}>
-                    Not yet? Give us feedback
-                </Text>
+                <Pressable onPress={() => {
+                    navigation.goBack()
+                    setTimeout(() => {
+                        navigation.navigate('Settings')
+                    }, 500);
+
+                }}>
+                    <Text style={styles.footerTxt}>
+                        Not yet? Give us feedback
+                    </Text>
+                </Pressable>
+
             </View>
 
         </SafeAreaView>
