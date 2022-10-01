@@ -2,7 +2,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type StackNavigationType = {
   Home: undefined;
-  RateUs: undefined;
+  RateUsTest: undefined;
+  RateUsControl: undefined;
 };
 
 export type SubNavigator<T extends StackNavigationType> = {
