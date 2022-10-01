@@ -4,6 +4,7 @@ import * as React from 'react';
 import HomeScreen from '../screens/Home';
 import RateUSControl from '../screens/RateUs/RateUsControl';
 import RateUSTest from '../screens/RateUs/RateUsTest';
+import Settings from '../screens/Settings';
 import { StackNavigationType } from './type';
 
 const Stack = createNativeStackNavigator<StackNavigationType>();
@@ -18,6 +19,11 @@ const Navigation = () => {
                     gestureEnabled: true,
                 }}>
                 <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Settings" component={Settings}
+                    options={{
+                        headerShown: true
+                    }}
+                />
                 <Stack.Group
                     screenOptions={{
                         presentation: 'transparentModal',

@@ -4,6 +4,7 @@ export type StackNavigationType = {
   Home: undefined;
   RateUsTest: undefined;
   RateUsControl: undefined;
+  Settings: undefined;
 };
 
 export type SubNavigator<T extends StackNavigationType> = {
