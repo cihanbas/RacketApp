@@ -1,36 +1,30 @@
 import React, { useEffect } from 'react';
-import { Image, Pressable, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Icon, IconsEnum } from '../../assets/svg';
-import { NavigationProps } from '../../navigation/type';
+import { Button, Image, StatusBar, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
+import { colors } from '../../assets/colors';
+import { NavigationProps } from '../../navigation/type';
+ 
 const HomeScreen = ({ navigation }: NavigationProps) => {
+   
     useEffect(() => {
         setTimeout(() => {
-            navigation.navigate('RateUs')
-        }, 3000);
-
-
+            navigation.navigate('RateUsTest')
+        }, 1000);
     }, [])
 
     return (
         <View style={styles.container}>
             <StatusBar barStyle='light-content' backgroundColor='0180ae' />
             <View style={styles.topView} />
+            <Button title='Test' onPress={() => navigation.navigate('RateUsTest')} />
+            <Button title='Control' onPress={() => navigation.navigate('RateUsControl')} />
             <LinearGradient
-
                 locations={[0, 1]}
-                colors={['#0180ae', '#23b99b']}
-
-                style={styles.gradient}
-            >
+                colors={[colors.gradientStartColor, colors.gradientEndColor]}
+                style={styles.gradient}>
                 <Image source={require('../../assets/img/racketpal.webp')} />
-
-
             </LinearGradient>
             <View style={styles.bottomView} />
-
         </View>
     )
 }
@@ -40,15 +34,14 @@ export default HomeScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
     },
     topView: {
         flex: 1,
-        backgroundColor: '#0180ae'
+        backgroundColor: colors.gradientStartColor
     },
     bottomView: {
         flex: 1,
-        backgroundColor: '#23b99b'
+        backgroundColor: colors.gradientEndColor
     },
     gradient: {
         flex: 1,
