@@ -1,10 +1,10 @@
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { NavigationProps } from '../../navigation/type'
 import { colors } from '../../assets/colors'
 import { Icon, IconsEnum } from '../../assets/svg'
-import { appPading, normalize } from '../../utils/helper'
+import { NavigationProps } from '../../navigation/type'
+import { appPading, normalize, rateApp } from '../../utils/helper'
 
 const RateUSTest = ({ navigation }: NavigationProps) => {
     const goBack = () => {
@@ -41,7 +41,7 @@ const RateUSTest = ({ navigation }: NavigationProps) => {
                     Your App Store review
                     greatly helps spread the word and grow the racket sports community!
                 </Text>
-                <Pressable style={styles.rateBtn}>
+                <Pressable style={styles.rateBtn} onPress={rateApp}>
                     <Text style={styles.rateBtnTxt}>
                         Rate Us
                     </Text>
