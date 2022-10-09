@@ -1,9 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ControlRateReponse, TestRateReponse } from "../services/type";
 
 export type StackNavigationType = {
   Home: undefined;
-  RateUsTest: undefined;
-  RateUsControl: undefined;
+  RateUsTest: {
+    userId: number
+    testRate?: TestRateReponse
+  };
+  RateUsControl: {
+    userId: number
+    controlRate?: ControlRateReponse
+  };
   Settings: undefined;
 };
 
