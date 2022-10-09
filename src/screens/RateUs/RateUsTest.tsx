@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { colors } from '../../assets/colors'
@@ -9,8 +9,7 @@ import { endpoints } from '../../services/endpoints'
 import { TestRateReponse, UserResponse } from '../../services/type'
 import { appPading, normalize, rateApp } from '../../utils/helper'
 
-const RateUSTest = ({ navigation, route }: NavigationStackProps) => {
-    const [state, setState] = useState<TestRateReponse | null>(null)
+const RateUSTest = ({ navigation, route }: NavigationStackProps) => { 
     const { testRate, user } = route.params as { testRate: TestRateReponse | undefined, user: UserResponse }
     const userId = user.id
     if (testRate) {

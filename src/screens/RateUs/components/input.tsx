@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react'
-import { Animated, Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableNativeFeedback } from 'react-native'
+import { Animated, Keyboard, Pressable, StyleSheet, Text, TextInput } from 'react-native'
 import { colors } from '../../../assets/colors'
 import { NavigationStackProps } from '../../../navigation/type'
 import { appPading, normalize } from '../../../utils/helper'
