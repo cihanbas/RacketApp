@@ -1,5 +1,5 @@
 {
-    "ControlRate": {
+    "Controlrate": {
         "displayCount": {
             "int": {
                 "min": 1,
@@ -34,7 +34,7 @@
             "number": {}
         }
     },
-    "TestRate": {
+    "Testrate": {
         "displayCount": {
             "int": {}
         },
