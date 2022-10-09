@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react'
-import { Animated, Keyboard, Pressable, StyleSheet, Text, TextInput } from 'react-native'
+import { Animated, Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableNativeFeedback } from 'react-native'
 import { colors } from '../../../assets/colors'
 import { NavigationStackProps } from '../../../navigation/type'
 import { appPading, normalize } from '../../../utils/helper'
@@ -14,6 +14,9 @@ const RateControlInput = memo(({ animatedValue, navigation }: P) => {
         
     }
     return (
+         
+
+        
         <Animated.View style={{
             opacity: animatedValue.interpolate({
                 inputRange: [0, 100],
@@ -36,7 +39,9 @@ const RateControlInput = memo(({ animatedValue, navigation }: P) => {
             backgroundColor: colors.white,
             borderBottomLeftRadius: normalize(6),
             borderBottomRightRadius: normalize(6)
-        }}>
+        }}> 
+
+            
             <Text style={styles.inputLabel}>
                 ANY FEEDBACK FOR US?
             </Text>
@@ -45,11 +50,11 @@ const RateControlInput = memo(({ animatedValue, navigation }: P) => {
                 onChangeText={val => setTextValue(val)}
                 style={styles.input}
                 numberOfLines={5}
-                multiline
-                autoFocus
+                multiline 
                 returnKeyType='send'
                 returnKeyLabel='Submit'
                 onSubmitEditing={send}
+                placeholderTextColor={colors.black}
             />
             <Pressable style={styles.submitBtn} onPress={()=>navigation.goBack()}>
                 <Text style={styles.btnTxt}>
@@ -65,9 +70,8 @@ const RateControlInput = memo(({ animatedValue, navigation }: P) => {
                 }),
             }}>
 
-            </Animated.View>
-
-        </Animated.View>
+            </Animated.View> 
+        </Animated.View> 
     )
 })
 
@@ -82,6 +86,7 @@ const styles = StyleSheet.create({
         height: normalize(110),
         fontSize: normalize(12),
         fontWeight: '400',
+        color:colors.black
     },
     inputLabel: {
         fontSize: normalize(10),
