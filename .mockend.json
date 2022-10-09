@@ -1,0 +1,83 @@
+{
+    "ControlRate": {
+        "displayCount": {
+            "int": {
+                "min": 0,
+                "max": 3
+            }
+        },
+        "rate": {
+            "int": {
+                "min": 1,
+                "max": 5
+            }
+        },
+        "isRated": {
+            "boolean": false
+        },
+        "displayDate": {
+            "dateTime": {}
+        },
+        "nextShowDate": {
+            "dateTime": {}
+        },
+        "isDisabled": {
+            "boolean": false
+        },
+        "isRemindMeLater": {
+            "boolean": false
+        },
+        "feedbackMsg": {
+            "string": {}
+        },
+        "userID": {
+            "number": {}
+        }
+    },
+    "TestRate": {
+        "displayCount": {
+            "int": {}
+        },
+        "isRated": {
+            "boolean": false
+        },
+        "rate": {
+            "int": {
+                "min": 1,
+                "max": 5
+            }
+        },
+        "displayDate": {
+            "dateTime": {}
+        },
+        "nextShowDate": {
+            "dateTime": {}
+        },
+        "isDisabled": {
+            "boolean": false
+        },
+        "userCreatedAt": {
+            "dateTime": {}
+        },
+        "isClosed": {
+            "boolean": false
+        },
+        "userID": {
+            "number": {}
+        }
+    },
+    "User": {
+        "name": {
+            "string": {}
+        },
+        "rateType": {
+            "string": [
+                "Test",
+                "Control"
+            ]
+        },
+        "createDate": {
+            "Date": {}
+        }
+    }
+}
