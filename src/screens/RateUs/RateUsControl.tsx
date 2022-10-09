@@ -1,26 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Animated, Pressable, StyleSheet,  View } from 'react-native'
+import { Animated, Pressable, StyleSheet, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { colors } from '../../assets/colors'
 import { Icon, IconsEnum } from '../../assets/svg'
 import { Text } from '../../components'
-import { NavigationProps } from '../../navigation/type'
+import { NavigationProps, NavigationStackProps } from '../../navigation/type'
+import { endpoints } from '../../services/endpoints'
+import { ControlRateReponse } from '../../services/type'
 import { appPading, normalize, rateApp } from '../../utils/helper'
 import RateControlInput from './components/input'
 const currentValue = -1
 const stars = [1, 2, 3, 4, 5]
-const RateUSControl = ({ navigation }: NavigationProps) => {
- 
+const RateUSControl = ({ navigation, route }: NavigationStackProps) => {
+
     const [selectedIndex, SetSelectedIndex] = useState<number>(currentValue)
     const translation = useRef(new Animated.Value(0)).current;
+    const { controlRate, userId } = route.params as { controlRate: ControlRateReponse | undefined, userId: number }
+
     useEffect(() => {
 
-        if (selectedIndex > 3 || selectedIndex !== currentValue) { 
-
+        if (selectedIndex > 3 || selectedIndex !== currentValue) {
             showInput()
         }
-   
+
     }, [selectedIndex])
 
     const showInput = () => {
@@ -34,16 +37,82 @@ const RateUSControl = ({ navigation }: NavigationProps) => {
 
 
     const remindMeLater = () => {
+        if (controlRate) {
+            controlRate.isDisabled = true
+            controlRate.isRated = false
+            controlRate.rate = selectedIndex
+            controlRate.displayCount += 1
+            controlRate.isRemindMeLater = true
+
+            endpoints.controlRate.put(userId, controlRate)
+        }
+        else {
+            const data = {
+                "displayCount": 1,
+                "isRated": false,
+                "rate": selectedIndex,
+                "displayDate": new Date(),
+                "isDisabled": true,
+                isRemindMeLater: true  
+            }
+            endpoints.controlRate.post(userId, data)
+        }
         navigation.goBack()
     }
     const onSelect = (value: number) => {
-        if (value > 3 && selectedIndex === currentValue) { 
-                navigation.goBack()   
-                rateApp()  
+
+        if (value > 3 && selectedIndex === currentValue) {
+            navigation.goBack()
+            rateApp()
+            if (controlRate) {
+                controlRate.isDisabled = true
+                controlRate.isRated = true
+                controlRate.rate = value
+                controlRate.displayCount += 1
+                endpoints.controlRate.put(userId, controlRate)
+            }
+            else {
+                const data = {
+                    "displayCount": 1,
+                    "isRated": true,
+                    "rate": value,
+                    "displayDate": new Date(),
+                    "isDisabled": true,
+                    "closeCount": 0,
+
+                }
+                endpoints.controlRate.post(userId, data)
+            }
+
+
         }
         else {
             SetSelectedIndex(value)
-        } 
+        }
+    }
+    const onSubmit = (text: string) => {
+        if (controlRate) {
+            controlRate.isDisabled = true
+            controlRate.isRated = true
+            controlRate.rate = selectedIndex
+            controlRate.displayCount += 1
+            controlRate.feedbackMsg = text
+            endpoints.controlRate.put(userId, controlRate)
+        }
+        else {
+            const data = {
+                "displayCount": 1,
+                "isRated": true,
+                "rate": selectedIndex,
+                "displayDate": new Date(),
+                "isDisabled": true,
+
+                feedbackMsg: text
+
+            }
+            endpoints.controlRate.post(userId, data)
+        }
+        navigation.goBack()
     }
     return (
         <SafeAreaView style={styles.root}>
@@ -81,7 +150,7 @@ const RateUSControl = ({ navigation }: NavigationProps) => {
                         </Animated.View>
                     </View>
                 </Animated.View>
-                <RateControlInput animatedValue={translation} navigation={navigation} />
+                <RateControlInput animatedValue={translation} navigation={navigation} onSubmit={onSubmit} />
             </KeyboardAwareScrollView>
         </SafeAreaView>
     )
