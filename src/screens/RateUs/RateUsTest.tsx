@@ -1,15 +1,71 @@
-import React from 'react'
-import { Pressable, StyleSheet , View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Pressable, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { colors } from '../../assets/colors'
 import { Icon, IconsEnum } from '../../assets/svg'
 import { Text } from '../../components'
-import { NavigationProps } from '../../navigation/type'
+import { NavigationStackProps } from '../../navigation/type'
+import { endpoints } from '../../services/endpoints'
+import { TestRateReponse, UserResponse } from '../../services/type'
 import { appPading, normalize, rateApp } from '../../utils/helper'
 
-const RateUSTest = ({ navigation }: NavigationProps) => {
+const RateUSTest = ({ navigation, route }: NavigationStackProps) => {
+    const [state, setState] = useState<TestRateReponse | null>(null)
+    const { testRate, user } = route.params as { testRate: TestRateReponse | undefined, user: UserResponse }
+    const userId = user.id
+    if (testRate) {
+        testRate.displayCount += 1
+    }
+ 
+
     const goBack = () => {
+        if (testRate) {
+            testRate.closedCount += 1 
+            endpoints.testRate.put(userId, testRate)
+        }
         navigation.goBack()
+    }
+    const rateUs = () => {
+        helper()
+        rateApp()
+    }
+    const notYet = () => {
+        if (testRate) {
+            testRate.isDisabled = true
+            testRate.isRated = false
+            endpoints.testRate.put(userId, testRate)
+        }
+        else {
+            const data = {
+                "closeCount": 0,
+                "isDisabled": true,
+                "isRated": false,
+                "displayCount": 1
+            }
+            endpoints.testRate.post(userId, data)
+        }
+        navigation.goBack()
+        setTimeout(() => {
+            navigation.navigate('Settings')
+        }, 500);
+
+
+    }
+    const helper = () => {
+        if (testRate) {
+            testRate.isDisabled = true
+            testRate.isRated = true
+            endpoints.testRate.put(userId, testRate)
+        }
+        else {
+            const data = {
+                "closeCount": 0,
+                "isDisabled": true,
+                "isRated": true,
+                "displayCount": 1
+            }
+            endpoints.testRate.post(userId, data)
+        }
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -42,18 +98,12 @@ const RateUSTest = ({ navigation }: NavigationProps) => {
                     Your App Store review
                     greatly helps spread the word and grow the racket sports community!
                 </Text>
-                <Pressable style={styles.rateBtn} onPress={rateApp}>
+                <Pressable style={styles.rateBtn} onPress={rateUs}>
                     <Text style={styles.rateBtnTxt}>
                         Rate Us
                     </Text>
                 </Pressable>
-                <Pressable onPress={() => {
-                    navigation.goBack()
-                    setTimeout(() => {
-                        navigation.navigate('Settings')
-                    }, 500);
-
-                }}>
+                <Pressable onPress={notYet}>
                     <Text style={styles.footerTxt}>
                         Not yet? Give us feedback
                     </Text>
