@@ -37,12 +37,18 @@
             "string": {}
         },
         "userID": {
-            "number": {}
+            "int": {
+                "min": 1,
+                "max": 3000
+            }
         }
     },
     "Testrate": {
         "displayCount": {
-            "int": {}
+            "int": {
+                "min": 1,
+                "max": 30
+            }
         },
         "isRated": {
             "boolean": {}
@@ -73,7 +79,10 @@
             "boolean": {}
         },
         "userID": {
-            "number": {}
+            "int": {
+                "min": 1,
+                "max": 3000
+            }
         }
     },
     "Users": {
