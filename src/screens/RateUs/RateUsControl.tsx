@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Animated, Pressable, StyleSheet,  View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { colors } from '../../assets/colors'
 import { Icon, IconsEnum } from '../../assets/svg'
+import { Text } from '../../components'
 import { NavigationProps } from '../../navigation/type'
-import { appPading, normalize } from '../../utils/helper'
+import { appPading, normalize, rateApp } from '../../utils/helper'
 import RateControlInput from './components/input'
 const currentValue = -1
 const stars = [1, 2, 3, 4, 5]
@@ -15,8 +16,7 @@ const RateUSControl = ({ navigation }: NavigationProps) => {
     const translation = useRef(new Animated.Value(0)).current;
     useEffect(() => {
 
-        if (selectedIndex > 3 || selectedIndex !== currentValue) {
-            // hideInput()
+        if (selectedIndex > 3 || selectedIndex !== currentValue) { 
 
             showInput()
         }
@@ -38,7 +38,8 @@ const RateUSControl = ({ navigation }: NavigationProps) => {
     }
     const onSelect = (value: number) => {
         if (value > 3 && selectedIndex === currentValue) { 
-                navigation.goBack()     
+                navigation.goBack()   
+                rateApp()  
         }
         else {
             SetSelectedIndex(value)

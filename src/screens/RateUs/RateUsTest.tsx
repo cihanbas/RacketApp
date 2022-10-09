@@ -1,8 +1,9 @@
 import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet , View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { colors } from '../../assets/colors'
 import { Icon, IconsEnum } from '../../assets/svg'
+import { Text } from '../../components'
 import { NavigationProps } from '../../navigation/type'
 import { appPading, normalize, rateApp } from '../../utils/helper'
 
