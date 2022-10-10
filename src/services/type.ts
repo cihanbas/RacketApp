@@ -13,9 +13,9 @@ interface ControlRateReponse {
     isRemindMeLater: boolean
     feedbackMsg: string
     UserId: number
-    id:number
+    id: number
 }
- 
+
 interface TestRateReponse {
     displayCount: number
     rate: number
@@ -25,7 +25,7 @@ interface TestRateReponse {
     nextShowDate: Date
     closedCount: number
     UserId: number
-    id:number
+    id: number
 }
 interface TestlRateRequest {
     displayCount?: number
@@ -43,7 +43,7 @@ interface UserResponse {
 }
 interface UserRequest {
     name: string
-    rateType: RateType
+    rateType: string
 }
 
 

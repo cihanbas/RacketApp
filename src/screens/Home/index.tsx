@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, StatusBar, StyleSheet, View } from 'react-native';
+import { Image, StatusBar, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../../assets/colors';
 import { NavigationProps } from '../../navigation/type';
 import { endpoints } from '../../services/endpoints';
 import { ControlRateReponse, RateType, TestRateReponse, UserRequest, UserResponse } from '../../services/type';
+import { randomRateType } from '../../utils/helper';
 const HomeScreen = ({ navigation }: NavigationProps) => {
 
     const [user, setUser] = useState<UserResponse | null>(null)
@@ -59,10 +60,7 @@ const HomeScreen = ({ navigation }: NavigationProps) => {
             navigation.navigate('RateUsTest', { userId: user!.id })
         }
     }
-    const getUser = async () => {
-        const rateType = (Math.floor(Math.random() * 2) + 1) % 2 == 0 ? RateType.control : RateType.test
-        //random rate type  
-
+    const getUser = async () => { 
         try {
             const user = await (await endpoints.user.get()).data as UserResponse
             if (user) {
@@ -70,19 +68,20 @@ const HomeScreen = ({ navigation }: NavigationProps) => {
 
             }
         } catch (error) {
+            // if we dont have user 
             const user: UserRequest = {
-                rateType: RateType.test,
+                rateType: randomRateType(),
                 name: "RateType",
             }
             await endpoints.user.post(user)
             getUser()
         }
-    } 
+    }
     return (
         <View style={styles.container}>
             <StatusBar barStyle='light-content' backgroundColor='0180ae' />
             <View style={styles.topView} />
-         
+
 
 
             <LinearGradient
